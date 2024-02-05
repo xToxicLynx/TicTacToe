@@ -172,14 +172,12 @@ function displayConnectionStatus() {
     let connectionBtn = document.getElementById("connect-btn");
     let status = document.getElementById("status-text");
 
-    // Wenn ein Peer objekt existiert und zum broker verbunden ist, zeige die eigene Id an
     if (peer && peer.id) {
         ownId.innerHTML = peer.id;
     }
 
     console.log(connection);
 
-    // Wenn eine aktive Verbindung besteht, sperre die Eingabefelder
     if (connection && connection.open) {
         connectionId.setAttribute("disabled", null);
         connectionId.value = connection.peer;
@@ -196,7 +194,7 @@ function displayConnectionStatus() {
 }
 
 function dataRecieved(data) {
-    // Bastel aus unserem JSON String das Objekt zusammen
+
     data = JSON.parse(data);
 
     switch (data.action) {
@@ -217,15 +215,15 @@ function dataRecieved(data) {
     }
 }
 
-// Erstellt einen Peer und wartet, bis er bereit ist
+
 async function setupPeer() {
     let peer = new Peer(
         {
-            debug: 3 // Schalte debug logs an
+            debug: 3
         }
     );
 
-    // Warte bis der Peer geöffnet ist
+
     await new Promise(resolve => peer.on('open', resolve));
 
     console.log(peer.id);
@@ -236,15 +234,15 @@ async function setupPeer() {
 }
 
 function setupConnection(con) {
-    // Die Funktion, die bei einem Fehler mit der Host-Verbindung ausgeführt werden soll
+
     con.on('error', function (error) {
-        console.error(error); // Gib lediglich den Fehler aus
+        console.error(error); 
     });
 
-    // Die Funktion, die bei dem erhalt von Daten über die Host-Verbindung ausgeführt werden soll
+
     con.on('data', dataRecieved);
 
-    // Die Funktion, die bei Trennen der Verbindung zum Host ausgeführt werden soll
+
     con.on('close', () => {
         console.log("Connection closed");
         endGame();
@@ -253,7 +251,7 @@ function setupConnection(con) {
 }
 
 async function playerJoined(con) {
-    // Wenn noch peer objekt noch nicht initilalisiert, breche ab
+
     if (!peer) {
         return;
     }
@@ -268,13 +266,13 @@ async function playerJoined(con) {
     ownState = hostState;
     enemyState = (hostState == "cross") ? "circle" : "cross";
 
-    // Punkte zurücksetzen
+
     ownPoints = 0;
     enemyPoints = 0;
 
     startGame();
 
-    // Randomize who will start
+
     if (Math.random() < 0.5) {
         setHasTurn(true, true);
 
@@ -295,12 +293,12 @@ async function playerJoined(con) {
 }
 
 async function joinGame(id) {
-    // Wenn peer objekt noch nicht initilalisiert, breche ab
+
     if (!peer) {
         return;
     }
 
-    // Mit dem host verbinden
+
     let hostConnection = peer.connect(id);
     await new Promise(resolve => hostConnection.on('open', resolve));
 
@@ -312,7 +310,7 @@ async function joinGame(id) {
     enemyState = hostState;
     ownState = (hostState == "cross") ? "circle" : "cross";
 
-    // Punkte zurücksetzen
+
     ownPoints = 0;
     enemyPoints = 0;
 
@@ -323,23 +321,23 @@ async function joinGame(id) {
 function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-// Funktion die aufgerufen wird, wenn auf den "Verbinden" Button gedrückt wird
+
 function connectBtnClicked() {
     let idElement = document.getElementById("enemy-id");
 
     joinGame(idElement.value, peer);
 }
 
-// Funktion die aufgerufen wird, wenn auf den "Neustarten" Button gedrückt wird
+
 function restartBtnClicked() {
-    // Schicke die Information an den Gegner, dass das Spiel neugestartet werden soll
+
     connection.send(JSON.stringify({
         action: "restart"
     }));
 
     startGame();
 
-    // Randomize who will start
+
     if (Math.random() < 0.5) {
         setHasTurn(true, true);
 
@@ -358,9 +356,9 @@ function restartBtnClicked() {
     }
 }
 
-// Ändere die globale Variable setTurn und zeige den Status des Zuges an
+
 function setHasTurn(value, showStatus) {
-    // Wenn kein aktives Spiel existiert, darf hasTurn nicht wahr sein
+
     if (value && !activeGame) {
         return;
     }

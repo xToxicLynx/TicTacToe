@@ -28,7 +28,8 @@
     color: #fe447d;
 }
 
-body {
-    overflow-y: scroll;
-    height: 100vh;
+@media only screen and (min-width: 600px) {
+    body {
+        height: 100vh;
+    }
 }

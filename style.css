@@ -27,3 +27,7 @@
 .bi-x-lg {
     color: #fe447d;
 }
+
+body {
+    overflow-y: scroll;
+}

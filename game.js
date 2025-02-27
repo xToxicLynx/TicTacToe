@@ -55,7 +55,7 @@ function setField(fieldIndex, value) {
         if (gameWon == "clear") {
             if (gameIsFull) {
                 endGame();
-                statusText.innerHTML = "Unentschieden"
+                statusText.innerHTML = "Tie!"
                 Body.style = "background: #f3f354"
             }
     
@@ -65,7 +65,7 @@ function setField(fieldIndex, value) {
         endGame();
     
         if (gameWon == "cross") {
-            statusText.innerHTML = "Kreuz hat gewonnen!"
+            statusText.innerHTML = "Cross wins!"
             Body.style = "background: #fe447d"
             if (ownState == "cross") {
                 ownPoints = ownPoints + 1
@@ -75,7 +75,7 @@ function setField(fieldIndex, value) {
             }
         }
         if (gameWon == "circle") {
-            statusText.innerHTML = "Kreis hat gewonnen!"
+            statusText.innerHTML = "Circle wins!"
             Body.style = "background: #5cd05b"
             if (ownState == "circle") {
                 ownPoints = ownPoints + 1
@@ -182,14 +182,14 @@ function displayConnectionStatus() {
         connectionId.setAttribute("disabled", null);
         connectionId.value = connection.peer;
         connectionBtn.setAttribute("disabled", null);
-        connectionBtn.innerHTML = "Verbunden";
-        status.innerHTML = "Verbunden mit Gegenspieler";
+        connectionBtn.innerHTML = "Connected";
+        status.innerHTML = "Connected to opponent";
     }
     else {
         connectionId.removeAttribute("disabled");
         connectionBtn.removeAttribute("disabled");
-        connectionBtn.innerHTML = "Verbinden";
-        status.innerHTML = "Kein Gegenspieler";
+        connectionBtn.innerHTML = "Connect";
+        status.innerHTML = "No opponent";
     }
 }
 
@@ -369,13 +369,13 @@ function setHasTurn(value, showStatus) {
 
     if (value) {
         if (showStatus) {
-            status.innerHTML = "Du bist am Zug - " + ownPoints + ":" + enemyPoints;
+            status.innerHTML = "Your turn - " + ownPoints + ":" + enemyPoints;
         }
 
     }
     else {
         if (showStatus) {
-            status.innerHTML = "Der Gegner ist am Zug - " + ownPoints + ":" + enemyPoints;
+            status.innerHTML = "Opponent's turn - " + ownPoints + ":" + enemyPoints;
         }
     }
 }

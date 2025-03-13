@@ -1,1 +1,1 @@
-<a href="https://toxic-lynx.github.io/TicTacToe/">toxiclynx11.github.io/TicTacToe</a>
+<a href="https://xtoxiclynx.github.io/TicTacToe/">xtoxiclynx.github.io/TicTacToe</a>
